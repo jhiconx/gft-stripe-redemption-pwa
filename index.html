@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a2a66" />
+  <meta name="description" content="GFT Rewards funding, campaign, redemption waterfall and payout prototype." />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./assets/icon-192.png" />
+  <link rel="apple-touch-icon" href="./assets/icon-192.png" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>GFT Rewards — Funding & Redemption Prototype</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand-lockup">
+      <div class="brand-mark">GFT</div>
+      <div>
+        <div class="brand-name">GFT Rewards</div>
+        <div class="brand-tagline">Brand funding · campaign wallets · programmed redemption</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <span class="prototype-pill">WORKING PROTOTYPE</span>
+      <button id="installBtn" class="ghost-btn hidden" type="button">Install PWA</button>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="brd-column" aria-label="Business requirements document">
+      <div class="eyebrow">BUSINESS REQUIREMENTS DOCUMENT</div>
+      <h1>Coke funds the campaign. GFT programs the economics. Bridge converts the money. Privy mirrors the payout state.</h1>
+      <p class="lede">A clean brand onboarding and campaign-management experience with a visible back-end funding path, a programmable $0.75 redemption waterfall, and downstream stakeholder payout controls.</p>
+
+      <div class="metric-grid">
+        <article class="metric-card">
+          <span class="metric-label">Brand funding</span>
+          <strong>$1,000,000</strong>
+          <small>Coke master funding deposit</small>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Allocated</span>
+          <strong>$950,000</strong>
+          <small>Across 3 campaigns</small>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Unallocated</span>
+          <strong>$50,000</strong>
+          <small>Available for another campaign</small>
+        </article>
+      </div>
+
+      <nav class="brd-tabs" aria-label="BRD sections">
+        <button class="brd-tab active" data-brd="overview">Overview</button>
+        <button class="brd-tab" data-brd="architecture">Funding flow</button>
+        <button class="brd-tab" data-brd="economics">Waterfall</button>
+        <button class="brd-tab" data-brd="shopper">Shopper payout</button>
+        <button class="brd-tab" data-brd="rules">System rules</button>
+      </nav>
+
+      <div class="brd-panel active" id="brd-overview">
+        <section class="doc-card">
+          <div class="doc-kicker">01 · Brand onboarding</div>
+          <h2>Start with two prompts, not a complex dashboard.</h2>
+          <p>The brand lands on a white GFT screen reading <strong>“Welcome to GFT, Let’s Get Started.”</strong> The first actions are <strong>Build A Campaign</strong> and <strong>Enter Your Banking Information</strong>. <strong>Build A Campaign</strong> opens the live GFT campaign admin at <strong>admin.gftrewards.com</strong>.</p>
+          <p>Banking information launches a <strong>Plaid-style prototype flow</strong>. After the demo connection is complete, the experience returns with <strong>“Congrats, Let’s Build a Campaign.”</strong></p>
+        </section>
+
+        <section class="doc-card">
+          <div class="doc-kicker">02 · Campaign portfolio</div>
+          <h2>$1M funded, $950K allocated, three live campaign wallets.</h2>
+          <div class="campaign-table" role="table" aria-label="Campaign portfolio">
+            <div class="campaign-row campaign-head" role="row">
+              <span>Campaign</span><span>Funding</span><span>Redeemed</span><span>Redeemed value</span>
+            </div>
+            <div class="campaign-row" role="row">
+              <span>Coke Campaign 1</span><span>$400,000</span><span>42%</span><span>$168,000</span>
+            </div>
+            <div class="campaign-row" role="row">
+              <span>Coke Campaign 2</span><span>$200,000</span><span>54%</span><span>$108,000</span>
+            </div>
+            <div class="campaign-row" role="row">
+              <span>Coke Campaign 3</span><span>$350,000</span><span>92%</span><span>$322,000</span>
+            </div>
+          </div>
+          <p class="tiny-note">Redeemed value above is the campaign funding amount multiplied by the user-supplied redemption percentage. It is displayed separately from the $0.75 transaction fee waterfall.</p>
+        </section>
+
+        <section class="doc-card">
+          <div class="doc-kicker">03 · Updated product behavior</div>
+          <h2>Campaign creation, waterfall presentation and shopper payout are explicit product requirements.</h2>
+          <p><strong>Build A Campaign</strong> must hand the user directly into the existing GFT campaign-management product at <strong>https://admin.gftrewards.com/</strong>. The prototype opens that destination in a new browser tab so the onboarding experience connects to the live GFT campaign workflow rather than recreating it.</p>
+          <p>All visible waterfall amounts are shown with <strong>two digits after the decimal</strong>. The Stripe Partner economic rule remains one-half cent per redemption; the user interface displays cent-rounded values while the underlying rule can retain the more precise value.</p>
+          <p>The shopper payout example is a <strong>$3.00 Coke redemption</strong>. The call to action reads <strong>Load to Card</strong>. The shopper receives a text, opens the link, enters a phone number, chooses <strong>iPhone</strong> or <strong>Android</strong>, and—when iPhone is selected—sees a <strong>Coke Debit</strong> card added to the iPhone wallet with <strong>$3.00 in rewards</strong>.</p>
+        </section>
+
+        <section class="doc-card">
+          <div class="doc-kicker">04 · Prototype boundary</div>
+          <h2>The UI is live; the money movement is simulated.</h2>
+          <p>This prototype does not connect to live Plaid, Bank of America, Bridge, Privy or Stripe APIs. It demonstrates the intended UX, state changes, ledger sequence, payout rules and PWA behavior without transmitting real banking credentials or funds.</p>
+        </section>
+      </div>
+
+      <div class="brd-panel" id="brd-architecture">
+        <section class="doc-card flow-doc">
+          <div class="doc-kicker">FUNDING ARCHITECTURE</div>
+          <h2>Fiat enters once. GFT records the source while Bridge converts the funds to USDC.</h2>
+          <div class="arch-flow">
+            <div class="arch-node"><span>1</span><strong>Coke</strong><small>Funds campaign in fiat</small></div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-node"><span>2</span><strong>GFT Master Account</strong><small>Bank of America</small></div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-node emphasized"><span>3</span><strong>GFT System</strong><small>Records brand + source of funds</small></div>
+          </div>
+          <div class="branch-label">SIMULTANEOUS BACK-END ACTIONS</div>
+          <div class="branch-grid">
+            <div class="branch-card">
+              <strong>Instruction path</strong>
+              <p>GFT identifies the brand/source-of-funds relationship and the target GFT Coke custodial wallet.</p>
+            </div>
+            <div class="branch-card">
+              <strong>Funds path</strong>
+              <p>Bridge converts fiat to USDC and moves the converted funds into the GFT Coke custodial wallet.</p>
+            </div>
+          </div>
+          <div class="arch-end">GFT Coke Custodial Wallet · USDC campaign funding</div>
+        </section>
+
+        <section class="doc-card reference-card">
+          <div class="doc-kicker">REFERENCE ARCHITECTURE</div>
+          <img src="./assets/reference-flow.png" alt="User-provided GFT Rewards, Privy and Bridge funding and redemption flow reference" />
+        </section>
+      </div>
+
+      <div class="brd-panel" id="brd-economics">
+        <section class="doc-card">
+          <div class="doc-kicker">REDEMPTION ECONOMICS</div>
+          <h2>Every redemption generates a $0.75 GFT fee and a programmed partner waterfall.</h2>
+          <div class="waterfall-list">
+            <div><span>Grocer</span><strong>$0.10</strong></div>
+            <div><span>Publisher / Agency</span><strong>$0.20</strong></div>
+            <div><span>POS Partner</span><strong>$0.02</strong></div>
+            <div><span>Stripe Partner</span><strong>$0.01*</strong></div>
+            <div class="total-line"><span>Partner distributions</span><strong>$0.33*</strong></div>
+            <div class="gft-line"><span>GFT retained after listed partner distributions</span><strong>$0.42*</strong></div>
+            <div class="fee-line"><span>Total GFT fee per redemption</span><strong>$0.75</strong></div>
+          </div>
+          <p class="tiny-note">*Waterfall displays are limited to two decimal places. The underlying Stripe Partner rule remains one-half cent per redemption; the displayed partner/GFT totals use cent-level rounding so the visible waterfall remains $0.75.</p>
+        </section>
+      </div>
+
+      <div class="brd-panel" id="brd-shopper">
+        <section class="doc-card">
+          <div class="doc-kicker">SHOPPER PAYOUT EXPERIENCE</div>
+          <h2>A $3.00 Coke reward moves from redemption to a mobile debit card in a short consumer flow.</h2>
+          <p>The shopper-facing payout is separate from the $0.75 stakeholder fee waterfall. For the prototype, Coke funds a <strong>$3.00 shopper reward</strong> and the shopper is presented with a <strong>Load to Card</strong> action.</p>
+          <div class="shopper-brd-flow" aria-label="Shopper payout requirements">
+            <div><span>1</span><strong>Coke redemption</strong><small>$3.00 reward approved</small></div>
+            <div><span>2</span><strong>Text message</strong><small>Shopper receives reward link</small></div>
+            <div><span>3</span><strong>Phone verification</strong><small>Shopper enters mobile number</small></div>
+            <div><span>4</span><strong>Choose device</strong><small>iPhone or Android</small></div>
+            <div><span>5</span><strong>Load to wallet</strong><small>Coke Debit · $3.00 Rewards</small></div>
+          </div>
+          <p><strong>iPhone prototype outcome:</strong> after choosing iPhone, the PWA shows a Coke-branded debit card inside an iPhone-wallet-style screen with a displayed balance of <strong>$3.00 in rewards</strong>.</p>
+        </section>
+
+        <section class="doc-card">
+          <div class="doc-kicker">PAYOUT ORCHESTRATION</div>
+          <h2>GFT defines the system state before Privy and Stripe execute downstream payout rules.</h2>
+          <p>GFT Rewards first records the redemption and programs the stakeholder waterfall. <strong>Then, and only then,</strong> stakeholder Privy wallets are created as mirrors of the GFT-defined balances and rules. Privy supports the downstream Stripe payout configuration; it does not replace the GFT wallet or GFT ledger logic.</p>
+          <p>For stakeholder payouts, the rule may direct value in <strong>USDC or fiat</strong>. For the shopper-card example, the prototype shows the consumer choosing a mobile platform and loading the $3.00 Coke reward to a debit-card experience in the selected mobile wallet.</p>
+        </section>
+      </div>
+
+      <div class="brd-panel" id="brd-rules">
+        <section class="doc-card">
+          <div class="doc-kicker">SYSTEM RULES</div>
+          <h2>GFT remains the system that programs the waterfall.</h2>
+          <ol class="rules-list">
+            <li><strong>GFT records the funding source and campaign allocation.</strong> Brand cash enters the master funding path and is associated with a GFT custodial brand wallet.</li>
+            <li><strong>GFT software programs the redemption waterfall first.</strong> Grocer, agency, POS, Stripe-partner and GFT ledger entries are generated from the $0.75 fee.</li>
+            <li><strong>Only after that ledger state exists, Privy mirror wallets are created for stakeholders.</strong> The Privy layer duplicates the balances/rules already defined by GFT rather than replacing the GFT wallet system.</li>
+            <li><strong>Stripe payout rules can then route value as fiat or USDC.</strong> The shopper example simulates a $3.00 Coke redemption: the shopper receives a text, opens the reward link, enters a phone number, selects iPhone or Android, and loads a Coke Debit card with $3.00 in rewards into the selected mobile wallet.</li>
+          </ol>
+        </section>
+      </div>
+    </section>
+
+    <aside class="prototype-column" aria-label="Interactive PWA prototype">
+      <div class="prototype-heading">
+        <div>
+          <div class="eyebrow">INTERACTIVE PWA</div>
+          <h2>Tap through the working prototype.</h2>
+        </div>
+        <button id="resetDemo" class="text-btn" type="button">Reset demo</button>
+      </div>
+
+      <div class="phone-wrap">
+        <div class="phone-frame">
+          <div class="phone-speaker"></div>
+          <div class="phone-screen">
+            <div class="app-statusbar"><span>9:41</span><span>GFT Rewards</span><span>5G ▮</span></div>
+            <div class="app-topbar">
+              <div class="mini-brand">GFT</div>
+              <div>
+                <strong>GFT Rewards</strong>
+                <small id="brandAccountLabel">Coke · Brand Account</small>
+              </div>
+              <button id="accountMenu" class="icon-btn" aria-label="Account menu">•••</button>
+            </div>
+
+            <div id="appViewport" class="app-viewport" aria-live="polite"></div>
+
+            <nav class="bottom-nav" aria-label="Prototype navigation">
+              <button data-screen="home" class="nav-btn active"><span>⌂</span><small>Home</small></button>
+              <button data-screen="banking" class="nav-btn"><span>▣</span><small>Bank</small></button>
+              <button data-screen="campaigns" class="nav-btn"><span>▥</span><small>Campaigns</small></button>
+              <button data-screen="flow" class="nav-btn"><span>⇄</span><small>Flow</small></button>
+              <button data-screen="payouts" class="nav-btn"><span>$</span><small>Payouts</small></button>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <p class="prototype-footnote">Demo only. Use fictional banking information. No real account linking, money movement, wallet creation or payouts occur.</p>
+    </aside>
+  </main>
+
+  <div id="plaidModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="plaidTitle">
+    <div class="modal-card plaid-card">
+      <button id="closePlaid" class="modal-close" aria-label="Close">×</button>
+      <div class="plaid-logo">PLAID <span>DEMO</span></div>
+      <h2 id="plaidTitle">Link a funding account</h2>
+      <p>Prototype only — do not enter real banking credentials.</p>
+      <label>Bank
+        <select id="plaidBank">
+          <option>Bank of America</option>
+          <option>JPMorgan Chase</option>
+          <option>Wells Fargo</option>
+          <option>Citibank</option>
+        </select>
+      </label>
+      <label>Account holder
+        <input id="plaidHolder" type="text" placeholder="Demo Brand LLC" autocomplete="off" />
+      </label>
+      <div class="field-pair">
+        <label>Routing number
+          <input id="plaidRouting" type="text" inputmode="numeric" maxlength="9" placeholder="000000000" autocomplete="off" />
+        </label>
+        <label>Account ending
+          <input id="plaidAccount" type="text" inputmode="numeric" maxlength="4" placeholder="0000" autocomplete="off" />
+        </label>
+      </div>
+      <label>Account type
+        <select id="plaidType"><option>Business checking</option><option>Business savings</option></select>
+      </label>
+      <button id="connectDemoBank" class="primary-btn full" type="button">Connect demo account</button>
+      <div id="plaidError" class="form-error hidden">Enter a demo account holder, 9-digit routing number and 4-digit account ending.</div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden" role="status"></div>
+  <script src="./app.js"></script>
+</body>
+</html>

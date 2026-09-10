@@ -53,6 +53,7 @@
       <nav class="brd-tabs" aria-label="BRD sections">
         <button class="brd-tab active" data-brd="overview">Overview</button>
         <button class="brd-tab" data-brd="architecture">Funding flow</button>
+        <button class="brd-tab" data-brd="wallets">Wallet roles</button>
         <button class="brd-tab" data-brd="economics">Waterfall</button>
         <button class="brd-tab" data-brd="shopper">Shopper payout</button>
         <button class="brd-tab" data-brd="rules">System rules</button>
@@ -61,7 +62,7 @@
       <div class="brd-panel active" id="brd-overview">
         <section class="doc-card">
           <div class="doc-kicker">01 · Brand onboarding</div>
-          <h2>Start with two prompts, not a complex dashboard.</h2>
+          <h2>All of this will take place in a clean, AI autonomous actions, <strong>structured data handling,</strong> RAG (Retrieval-Augmented Generation), MCP and agents using loops and dynamic workflows.</h2>
           <p>The brand lands on a white GFT screen reading <strong>“Welcome to GFT, Let’s Get Started.”</strong> The first actions are <strong>Build A Campaign</strong> and <strong>Enter Your Banking Information</strong>. <strong>Build A Campaign</strong> opens the live GFT campaign admin at <strong>admin.gftrewards.com</strong>.</p>
           <p>Banking information launches a <strong>Plaid-style prototype flow</strong>. After the demo connection is complete, the experience returns with <strong>“Congrats, Let’s Build a Campaign.”</strong></p>
         </section>
@@ -132,6 +133,57 @@
         </section>
       </div>
 
+      <div class="brd-panel" id="brd-wallets">
+        <section class="doc-card">
+          <div class="doc-kicker">GFT POWER WALLET + STRIPE INTEGRATION LAYER</div>
+          <h2>GFT Wallet is the Power Wallet. Privy is a supporting layer used to connect GFT to Stripe products.</h2>
+          <p>The <strong>GFT Power Wallet</strong> is the primary ledger, identity anchor, reward-state system and core wallet infrastructure. <strong>Privy</strong> is not the shopper-facing wallet and is not the system of record. It operates underneath GFT as a support / middleware layer for Stripe-compatible transaction flows and on-chain signing.</p>
+          <p>All wallet mapping and wallet operations use the <strong>GFT user_id only</strong>. A shopper may enter a phone number in the GFT user experience, but that phone number is resolved inside GFT to the GFT user_id. <strong>The shopper's phone number is never passed into Privy or used as the wallet-layer identifier.</strong></p>
+
+          <div class="role-grid" aria-label="Wallet and settlement architecture roles">
+            <article class="role-card primary-role">
+              <span>PRIMARY WALLET &amp; KEY LAYER</span>
+              <strong>GFT Power Wallet</strong>
+              <p>Primary ledger, identity anchor, reward state and wallet infrastructure.</p>
+              <small>Identifier: GFT user_id only</small>
+            </article>
+            <article class="role-card">
+              <span>STRIPE INTEGRATION &amp; SUPPORT LAYER</span>
+              <strong>Privy Middleware Layer</strong>
+              <p>Embedded support layer used to interface GFT Wallet assets with Stripe products and required signing rails.</p>
+              <small>Mapped 1:1 to GFT user_id</small>
+            </article>
+            <article class="role-card">
+              <span>LIQUIDITY &amp; ORCHESTRATION ENGINE</span>
+              <strong>LEGEND Backend</strong>
+              <p>Orchestrates auto-liquidation, fee rules and API calls between GFT Wallet, Privy and Stripe.</p>
+              <small>Internal orchestration / cashout state</small>
+            </article>
+            <article class="role-card">
+              <span>FINANCIAL SETTLEMENT RAIL</span>
+              <strong>Stripe Product Suite</strong>
+              <p>Executes downstream payouts to supported debit-card, prepaid-card or future Stripe fintech products.</p>
+              <small>Stripe payout / card identifiers</small>
+            </article>
+          </div>
+        </section>
+
+        <section class="doc-card">
+          <div class="doc-kicker">CONTROL SEQUENCE</div>
+          <h2>GFT controls the balance and rules first; Privy and Stripe execute only after GFT defines the state.</h2>
+          <div class="power-flow" aria-label="GFT Power Wallet handoff to Privy and Stripe">
+            <div><span>1</span><strong>GFT Power Wallet</strong><small>Owns ledger, user identity, reward balance and payout rule</small></div>
+            <b>→</b>
+            <div><span>2</span><strong>Privy Support Layer</strong><small>Activates required Stripe-compatible signing / transaction support</small></div>
+            <b>→</b>
+            <div><span>3</span><strong>LEGEND</strong><small>Orchestrates the rule and liquidation / payout workflow</small></div>
+            <b>→</b>
+            <div><span>4</span><strong>Stripe</strong><small>Executes the selected financial product or payout rail</small></div>
+          </div>
+          <p class="tiny-note">GFT remains the Power Wallet and system of record throughout. Privy exists as an embedded integration layer supporting Stripe product execution, not as a replacement for GFT Wallet.</p>
+        </section>
+      </div>
+
       <div class="brd-panel" id="brd-economics">
         <section class="doc-card">
           <div class="doc-kicker">REDEMPTION ECONOMICS</div>
@@ -166,8 +218,8 @@
 
         <section class="doc-card">
           <div class="doc-kicker">PAYOUT ORCHESTRATION</div>
-          <h2>GFT defines the system state before Privy and Stripe execute downstream payout rules.</h2>
-          <p>GFT Rewards first records the redemption and programs the stakeholder waterfall. <strong>Then, and only then,</strong> stakeholder Privy wallets are created as mirrors of the GFT-defined balances and rules. Privy supports the downstream Stripe payout configuration; it does not replace the GFT wallet or GFT ledger logic.</p>
+          <h2>GFT Power Wallet defines the system state before Privy and Stripe execute downstream payout rules.</h2>
+          <p>GFT Rewards first records the redemption and programs the stakeholder waterfall inside the <strong>GFT Power Wallet</strong>. <strong>Then, and only then,</strong> the Privy support layer is activated for the corresponding GFT user_id / stakeholder state needed to support Stripe execution. Privy mirrors or supports the state already defined by GFT; it does not replace the GFT wallet, GFT ledger or GFT identity layer.</p>
           <p>For stakeholder payouts, the rule may direct value in <strong>USDC or fiat</strong>. For the shopper-card example, the prototype shows the consumer choosing a mobile platform and loading the $3.00 Coke reward to a debit-card experience in the selected mobile wallet.</p>
         </section>
       </div>
@@ -179,8 +231,11 @@
           <ol class="rules-list">
             <li><strong>GFT records the funding source and campaign allocation.</strong> Brand cash enters the master funding path and is associated with a GFT custodial brand wallet.</li>
             <li><strong>GFT software programs the redemption waterfall first.</strong> Grocer, agency, POS, Stripe-partner and GFT ledger entries are generated from the $0.75 fee.</li>
-            <li><strong>Only after that ledger state exists, Privy mirror wallets are created for stakeholders.</strong> The Privy layer duplicates the balances/rules already defined by GFT rather than replacing the GFT wallet system.</li>
-            <li><strong>Stripe payout rules can then route value as fiat or USDC.</strong> The shopper example simulates a $3.00 Coke redemption: the shopper receives a text, opens the reward link, enters a phone number, selects iPhone or Android, and loads a Coke Debit card with $3.00 in rewards into the selected mobile wallet.</li>
+            <li><strong>GFT Wallet is the Power Wallet and system of record.</strong> It owns the primary ledger, GFT user_id mapping, reward state and payout rules.</li>
+            <li><strong>Only after the GFT ledger state exists is the Privy support layer activated.</strong> Privy is used underneath GFT to support Stripe-compatible signing and transaction execution. It does not replace the GFT wallet system.</li>
+            <li><strong>Wallet operations use the GFT user_id only.</strong> A shopper phone number may be collected in the GFT UX, but GFT resolves it internally; the phone number is not passed to Privy as the wallet identifier.</li>
+            <li><strong>LEGEND orchestrates the downstream workflow.</strong> It applies the GFT-defined fee and payout rules and dispatches the required calls between GFT Wallet, Privy and Stripe.</li>
+            <li><strong>Stripe payout rules can then route value as fiat or USDC.</strong> The shopper example simulates a $3.00 Coke redemption: the shopper receives a text, opens the reward link, enters a phone number in GFT, selects iPhone or Android, and loads a Coke Debit card with $3.00 in rewards into the selected mobile wallet.</li>
           </ol>
         </section>
       </div>

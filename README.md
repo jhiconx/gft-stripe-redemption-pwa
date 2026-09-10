@@ -1,4 +1,4 @@
-# GFT Rewards Funding & Redemption PWA Prototype
+# gft-stripe-redemption-pwa Prototype
 
 Deploy-ready static PWA with the Business Requirements Document on the left and an interactive mobile prototype on the right.
 
@@ -48,3 +48,13 @@ This project is intentionally static and needs no build command.
 ## Prototype boundary
 
 No live Plaid, Bank of America, Bridge, Privy, Stripe, debit-card, SMS, Apple/iPhone wallet, or Android wallet transaction occurs. The flows are interactive simulations for product and BRD review.
+
+
+## BRD architecture update
+
+- GFT Wallet is the **Power Wallet** and system of record.
+- Wallet mapping and operations use **GFT user_id only**. Shopper phone numbers stay in the GFT UX / identity layer and are not used as the Privy wallet identifier.
+- Privy is an embedded **Stripe integration/support layer**, not the primary wallet.
+- LEGEND orchestrates downstream rules and workflow execution.
+- Stripe executes the selected settlement / payout product after GFT defines the state.
+- The BRD onboarding statement is: “All of this will take place in a clean, AI autonomous actions, structured data handling, RAG (Retrieval-Augmented Generation), MCP and agents using loops and dynamic workflows.”

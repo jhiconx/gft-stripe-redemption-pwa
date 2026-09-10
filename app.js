@@ -5,6 +5,7 @@ const campaigns = [
 ];
 
 const fee = 0.75;
+const visibleCredits = 485400;
 const splits = {
   grocer: 0.10,
   agency: 0.20,
@@ -46,14 +47,10 @@ function loadState() {
     return structuredClone(defaultState);
   }
 }
-function saveState() {
-  localStorage.setItem('gftPrototypeState', JSON.stringify(state));
-}
-function money(n, decimals = 0) {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: decimals, maximumFractionDigits: decimals }).format(n);
-}
+function saveState() { localStorage.setItem('gftPrototypeState', JSON.stringify(state)); }
+function money(n, decimals = 0) { return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: decimals, maximumFractionDigits: decimals }).format(n); }
+function numberFmt(n) { return new Intl.NumberFormat('en-US').format(n); }
 function pctMoney(c) { return c.budget * c.redeemedPct / 100; }
-function totalAllocated() { return campaigns.reduce((a,c) => a + c.budget, 0) + state.customCampaigns.reduce((a,c) => a + c.budget, 0); }
 function showToast(message) {
   toast.textContent = message;
   toast.classList.remove('hidden');
@@ -84,6 +81,10 @@ function homeScreen() {
           <span class="prompt-icon">▦</span><span><strong>Enter Your Banking Information</strong><small>Launch the Plaid-style demo connection</small></span>
         </button>
         <div class="prompt-bar"><input id="quickPrompt" placeholder="Ask GFT to build or fund a campaign…"><button class="prompt-send" data-action="sendPrompt">↑</button></div>
+      </div>
+      <div class="card credits-inline-card">
+        <div class="card-title"><div><strong>Visible credits</strong><small>Persistent on every page</small></div><span class="badge blue">USDC-backed</span></div>
+        <div class="credits-inline-row"><img src="./assets/usdc-logo.png" alt="USDC logo"><div><strong>${numberFmt(visibleCredits)} Credits</strong><small>Always visible at the top of the app</small></div></div>
       </div>
       <div class="card">
         <div class="card-title"><div><strong>Coke funding snapshot</strong><small>$1M master funding example</small></div>${bankStatus}</div>
@@ -268,7 +269,7 @@ function walletMirrorsHtml(b) {
     <div class="wallet-card shopper-payout-card">
       <div class="wallet-head"><div><strong>Shopper payout · Coke Redemption</strong><small>Consumer reward example</small></div><span class="badge blue">$3.00 Reward</span></div>
       <div class="shopper-reward-amount">$3.00</div>
-      <p>A shopper has redeemed a Coke offer and has $3.00 available to load to a debit card.</p>
+      <p>A shopper has redeemed a Coke offer and has $3.00 available to load to a Chili Rewards Debit Card.</p>
       <button class="primary-btn full" data-action="startShopperPayout">Load to Card</button>
     </div>`;
 }
@@ -286,7 +287,7 @@ function shopperTextScreen() {
       <div class="message-shell">
         <div class="message-appbar"><span>‹</span><strong>Messages</strong><span>•••</span></div>
         <div class="message-contact"><div class="message-avatar">C</div><strong>Coke Rewards</strong><small>Text Message</small></div>
-        <div class="message-bubble">COKE REWARD: You have $3.00 in rewards ready to load to your Coke Debit card.</div>
+        <div class="message-bubble">COKE REWARD: You have $3.00 in rewards ready to load to your Chili Rewards Debit Card.</div>
         <button class="reward-link" data-action="openShopperReward"><span>GFT Rewards</span><strong>Load your $3.00 reward</strong><small>Secure reward link</small></button>
       </div>
     </section>`;
@@ -297,10 +298,10 @@ function shopperPhoneScreen() {
     <section class="screen shopper-flow-screen">
       <button class="text-btn" data-action="shopperBackToText">← Back to text</button>
       <div class="screen-eyebrow" style="margin-top:8px">Load to card</div>
-      <h3>Load $3.00<br>to Coke Debit</h3>
+      <h3>Load $3.00<br>to Chili Rewards Debit Card</h3>
       <p>Enter the mobile number tied to the GFT Rewards account.</p>
       <div class="card form-card shopper-entry-card">
-        <div class="coke-lockup"><span class="coke-dot">C</span><div><strong>Coke Debit</strong><small>$3.00 reward available</small></div></div>
+        <div class="coke-lockup"><span class="coke-dot">C</span><div><strong>Chili Rewards Debit Card</strong><small>$3.00 reward available</small></div></div>
         <label>Mobile phone number
           <input id="shopperPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(310) 555-0123" value="${escapeHtml(state.shopperPhone)}">
         </label>
@@ -315,7 +316,7 @@ function shopperDeviceScreen() {
     <section class="screen shopper-flow-screen">
       <button class="text-btn" data-action="shopperBackToPhone">← Phone number</button>
       <div class="screen-eyebrow" style="margin-top:8px">Choose wallet</div>
-      <h3>Where should we<br>load Coke Debit?</h3>
+      <h3>Where should we<br>load Chili Rewards Debit Card?</h3>
       <p>$3.00 in rewards is ready. Choose the shopper’s mobile wallet.</p>
       <div class="device-grid">
         <button class="device-card" data-action="chooseShopperDevice" data-device="iPhone">
@@ -335,16 +336,23 @@ function shopperWalletScreen() {
     <section class="screen shopper-flow-screen wallet-success-screen">
       <div class="success-check">✓</div>
       <div class="screen-eyebrow">Added successfully</div>
-      <h3>Coke Debit is in<br>${escapeHtml(device)} Wallet.</h3>
-      <p>The shopper’s $3.00 Coke reward is now shown on the Coke Debit card.</p>
-      <div class="mobile-wallet-pass">
-        <div class="pass-top"><div class="coke-script">Coke</div><span>DEBIT</span></div>
-        <div class="pass-chip"></div>
-        <div class="pass-label">REWARDS BALANCE</div>
-        <div class="pass-balance">$3.00</div>
-        <div class="pass-footer"><span>Coke Debit</span><span>•••• 3000</span></div>
+      <h3>Chili Rewards Debit Card is in<br>${escapeHtml(device)} Wallet.</h3>
+      <p>The shopper’s $3.00 Coke reward is now shown on the Chili Rewards Debit Card.</p>
+      <div class="wallet-success-layout">
+        <div class="mobile-wallet-pass">
+          <div class="pass-top"><div class="chili-title">Chili Rewards</div><span>DEBIT CARD</span></div>
+          <div class="pass-chip"></div>
+          <div class="pass-label">REWARDS BALANCE</div>
+          <div class="pass-balance">$3.00</div>
+          <div class="pass-footer"><span>Chili Rewards Debit Card</span><span>•••• 3000</span></div>
+        </div>
+        <aside class="credits-sidecard">
+          <div class="credits-side-head"><img src="./assets/usdc-logo.png" alt="USDC logo"><div><strong>Credits</strong><small>USDC-backed</small></div></div>
+          <div class="credits-side-total">${numberFmt(visibleCredits)}</div>
+          <div class="credits-side-note">Visible across every page in the prototype.</div>
+        </aside>
       </div>
-      <div class="success-panel"><h4>$3.00 loaded</h4><p>${escapeHtml(device)} Wallet · Coke Debit · Rewards balance $3.00</p></div>
+      <div class="success-panel"><h4>$3.00 loaded</h4><p>${escapeHtml(device)} Wallet · Chili Rewards Debit Card · Rewards balance $3.00</p></div>
       <button class="secondary-btn full" style="margin-top:12px" data-action="viewPayouts">Back to payouts</button>
     </section>`;
 }
@@ -482,7 +490,7 @@ document.getElementById('resetDemo').addEventListener('click', () => {
   render(); showToast('Prototype reset.');
 });
 
-document.getElementById('accountMenu').addEventListener('click', () => showToast('Coke · GFT Brand Account · Prototype'));
+document.getElementById('accountMenu').addEventListener('click', () => showToast('Coke · GFT Brand Account · 485,400 credits'));
 
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault(); deferredInstallPrompt = e;

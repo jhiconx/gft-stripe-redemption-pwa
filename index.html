@@ -30,12 +30,7 @@
     <section class="brd-column" aria-label="Business requirements document">
       <div class="eyebrow">BUSINESS REQUIREMENTS DOCUMENT</div>
       <h1>Coke funds the campaign. GFT programs the economics. Bridge converts the money. Privy mirrors the payout state.</h1>
-      <p class="lede">A clean brand onboarding and campaign-management experience with a visible back-end funding path, a programmable $0.75 redemption waterfall, and downstream stakeholder payout controls.</p>
-
-      <section class="ai-operating-model" aria-label="AI autonomous operating model requirement">
-        <div class="doc-kicker">AI AUTONOMOUS OPERATING MODEL · BRD REQUIREMENT</div>
-        <h2>All of this will take place in a clean, AI autonomous actions, <strong>structured data handling,</strong> RAG (Retrieval-Augmented Generation), MCP and agents using loops and dynamic workflows.</h2>
-      </section>
+      <p class="lede">A clean brand onboarding and campaign-management experience with a visible back-end funding path, a programmable $0.75 redemption waterfall, persistent credit visibility, and downstream stakeholder payout controls.</p>
 
       <div class="metric-grid">
         <article class="metric-card">
@@ -49,9 +44,9 @@
           <small>Across 3 campaigns</small>
         </article>
         <article class="metric-card">
-          <span class="metric-label">Unallocated</span>
-          <strong>$50,000</strong>
-          <small>Available for another campaign</small>
+          <span class="metric-label">Credits visible</span>
+          <strong>485,400</strong>
+          <small>USDC-backed credits shown on every page</small>
         </article>
       </div>
 
@@ -65,11 +60,12 @@
       </nav>
 
       <div class="brd-panel active" id="brd-overview">
-        <section class="doc-card">
-          <div class="doc-kicker">01 · Brand onboarding</div>
-          <h2>Brand onboarding begins with a clean GFT experience built around autonomous actions.</h2>
+        <section class="doc-card ai-doc-card">
+          <div class="doc-kicker">AI AUTONOMOUS OPERATING MODEL · BRD REQUIREMENT</div>
+          <h2>All of this will take place in a clean, AI autonomous actions, <strong>structured data handling,</strong> RAG (Retrieval-Augmented Generation), MCP and agents using loops and dynamic workflows.</h2>
           <p>The brand lands on a white GFT screen reading <strong>“Welcome to GFT, Let’s Get Started.”</strong> The first actions are <strong>Build A Campaign</strong> and <strong>Enter Your Banking Information</strong>. <strong>Build A Campaign</strong> opens the live GFT campaign admin at <strong>admin.gftrewards.com</strong>.</p>
           <p>Banking information launches a <strong>Plaid-style prototype flow</strong>. After the demo connection is complete, the experience returns with <strong>“Congrats, Let’s Build a Campaign.”</strong></p>
+          <p><strong>Persistent balance requirement:</strong> every page in the working prototype must display the shopper / account credit state using a <strong>USDC logo</strong>, the label <strong>Credits</strong>, and a running visible balance of <strong>485,400 credits</strong>.</p>
         </section>
 
         <section class="doc-card">
@@ -94,10 +90,10 @@
 
         <section class="doc-card">
           <div class="doc-kicker">03 · Updated product behavior</div>
-          <h2>Campaign creation, waterfall presentation and shopper payout are explicit product requirements.</h2>
+          <h2>Campaign creation, waterfall presentation, persistent credits and shopper payout are explicit product requirements.</h2>
           <p><strong>Build A Campaign</strong> must hand the user directly into the existing GFT campaign-management product at <strong>https://admin.gftrewards.com/</strong>. The prototype opens that destination in a new browser tab so the onboarding experience connects to the live GFT campaign workflow rather than recreating it.</p>
           <p>All visible waterfall amounts are shown with <strong>two digits after the decimal</strong>. The Stripe Partner economic rule remains one-half cent per redemption; the user interface displays cent-rounded values while the underlying rule can retain the more precise value.</p>
-          <p>The shopper payout example is a <strong>$3.00 Coke redemption</strong>. The call to action reads <strong>Load to Card</strong>. The shopper receives a text, opens the link, enters a phone number, chooses <strong>iPhone</strong> or <strong>Android</strong>, and—when iPhone is selected—sees a <strong>Coke Debit</strong> card added to the iPhone wallet with <strong>$3.00 in rewards</strong>.</p>
+          <p>The shopper payout example is a <strong>$3.00 Coke redemption</strong>. The call to action reads <strong>Load to Card</strong>. The shopper receives a text, opens the link, enters a phone number, chooses <strong>iPhone</strong> or <strong>Android</strong>, and—when iPhone is selected—sees a <strong>Chili Rewards Debit Card</strong> added to the iPhone wallet with <strong>$3.00 in rewards</strong> and <strong>485,400 credits</strong> visible alongside the card.</p>
         </section>
 
         <section class="doc-card">
@@ -216,9 +212,9 @@
             <div><span>2</span><strong>Text message</strong><small>Shopper receives reward link</small></div>
             <div><span>3</span><strong>Phone verification</strong><small>Shopper enters mobile number</small></div>
             <div><span>4</span><strong>Choose device</strong><small>iPhone or Android</small></div>
-            <div><span>5</span><strong>Load to wallet</strong><small>Coke Debit · $3.00 Rewards</small></div>
+            <div><span>5</span><strong>Load to wallet</strong><small>Chili Rewards Debit Card · $3.00 Rewards</small></div>
           </div>
-          <p><strong>iPhone prototype outcome:</strong> after choosing iPhone, the PWA shows a Coke-branded debit card inside an iPhone-wallet-style screen with a displayed balance of <strong>$3.00 in rewards</strong>.</p>
+          <p><strong>iPhone prototype outcome:</strong> after choosing iPhone, the PWA shows a <strong>Chili Rewards Debit Card</strong> inside an iPhone-wallet-style screen with a displayed balance of <strong>$3.00 in rewards</strong> and a persistent visible credit balance of <strong>485,400 credits</strong>.</p>
         </section>
 
         <section class="doc-card">
@@ -240,7 +236,7 @@
             <li><strong>Only after the GFT ledger state exists is the Privy support layer activated.</strong> Privy is used underneath GFT to support Stripe-compatible signing and transaction execution. It does not replace the GFT wallet system.</li>
             <li><strong>Wallet operations use the GFT user_id only.</strong> A shopper phone number may be collected in the GFT UX, but GFT resolves it internally; the phone number is not passed to Privy as the wallet identifier.</li>
             <li><strong>LEGEND orchestrates the downstream workflow.</strong> It applies the GFT-defined fee and payout rules and dispatches the required calls between GFT Wallet, Privy and Stripe.</li>
-            <li><strong>Stripe payout rules can then route value as fiat or USDC.</strong> The shopper example simulates a $3.00 Coke redemption: the shopper receives a text, opens the reward link, enters a phone number in GFT, selects iPhone or Android, and loads a Coke Debit card with $3.00 in rewards into the selected mobile wallet.</li>
+            <li><strong>Stripe payout rules can then route value as fiat or USDC.</strong> The shopper example simulates a $3.00 Coke redemption: the shopper receives a text, opens the reward link, enters a phone number in GFT, selects iPhone or Android, and loads a Chili Rewards Debit Card with $3.00 in rewards into the selected mobile wallet while 485,400 credits remain visible on every page.</li>
           </ol>
         </section>
       </div>
@@ -267,6 +263,17 @@
                 <small id="brandAccountLabel">Coke · Brand Account</small>
               </div>
               <button id="accountMenu" class="icon-btn" aria-label="Account menu">•••</button>
+            </div>
+
+            <div class="credits-banner" aria-label="Persistent credits balance">
+              <div class="credits-left">
+                <img src="./assets/usdc-logo.png" alt="USDC logo" class="credits-logo" />
+                <div>
+                  <strong>Credits</strong>
+                  <small>USDC-backed balance visible on every page</small>
+                </div>
+              </div>
+              <div class="credits-total">485,400</div>
             </div>
 
             <div id="appViewport" class="app-viewport" aria-live="polite"></div>

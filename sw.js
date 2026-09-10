@@ -1,28 +1,17 @@
-const CACHE = 'gft-stripe-redemption-pwa-v3';
-const ASSETS = ['./','./index.html','./styles.css','./app.js','./manifest.webmanifest','./assets/icon-192.png','./assets/icon-512.png','./assets/reference-flow.png'];
-
+const CACHE = 'gft-stripe-redemption-pwa-v4';
+const ASSETS = [
+  './', './index.html', './styles.css', './app.js', './manifest.webmanifest', './assets/icon-192.png', './assets/icon-512.png', './assets/reference-flow.png', './assets/usdc-logo.png'
+];
 self.addEventListener('install', event => {
-  self.skipWaiting();
-  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
+  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
 });
-
 self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key))))
-      .then(() => self.clients.claim())
-  );
+  event.waitUntil(self.clients.claim());
 });
-
-// Network-first so new Vercel deployments are visible immediately; cache is offline fallback only.
 self.addEventListener('fetch', event => {
-  if (event.request.method !== 'GET') return;
-  event.respondWith(
-    fetch(event.request)
-      .then(response => {
-        const copy = response.clone();
-        caches.open(CACHE).then(cache => cache.put(event.request, copy));
-        return response;
-      })
-      .catch(() => caches.match(event.request).then(cached => cached || caches.match('./index.html')))
-  );
+  event.respondWith(fetch(event.request).then(response => {
+    const copy = response.clone();
+    caches.open(CACHE).then(cache => cache.put(event.request, copy)).catch(() => {});
+    return response;
+  }).catch(() => caches.match(event.request).then(r => r || caches.match('./index.html'))));
 });

@@ -382,3 +382,27 @@ h1 { font-size: clamp(34px, 3vw, 54px); line-height: .98; letter-spacing: -.045e
 @media (max-width: 720px) {
   .role-grid { grid-template-columns: 1fr; }
 }
+
+
+/* BRD v3: make the AI autonomous operating-model requirement impossible to miss. */
+.ai-operating-model {
+  background: #ffffff;
+  border: 2px solid #0a2a66;
+  border-radius: 18px;
+  padding: 20px 22px;
+  margin: 18px 0 20px;
+  box-shadow: 0 10px 30px rgba(10, 42, 102, 0.08);
+}
+.ai-operating-model .doc-kicker {
+  margin-bottom: 9px;
+}
+.ai-operating-model h2 {
+  margin: 0;
+  font-size: clamp(18px, 1.45vw, 25px);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: #0b1736;
+}
+.ai-operating-model strong {
+  color: #0a2a66;
+}

@@ -1,3 +1,11 @@
+## BRD v3 visible requirement
+
+The BRD now places this requirement directly under the BRD introduction so it is visible without opening another tab:
+
+> All of this will take place in a clean, AI autonomous actions, **structured data handling,** RAG (Retrieval-Augmented Generation), MCP and agents using loops and dynamic workflows.
+
+The service worker is network-first in v3 so Vercel deployments do not keep showing an older cached BRD.
+
 # gft-stripe-redemption-pwa Prototype
 
 Deploy-ready static PWA with the Business Requirements Document on the left and an interactive mobile prototype on the right.

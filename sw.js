@@ -1,4 +1,4 @@
-const CACHE = 'gft-stripe-redemption-pwa-v4';
+const CACHE = 'gft-stripe-redemption-pwa-v6';
 const ASSETS = [
   './', './index.html', './styles.css', './app.js', './manifest.webmanifest', './assets/icon-192.png', './assets/icon-512.png', './assets/reference-flow.png', './assets/usdc-logo.png'
 ];

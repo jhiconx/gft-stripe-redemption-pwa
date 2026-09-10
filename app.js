@@ -72,6 +72,7 @@ function homeScreen() {
     <section class="screen">
       <div class="screen-eyebrow">Brand onboarding</div>
       <h3>Welcome to GFT,<br>Let’s Get Started.</h3>
+      <div class="powered-tag">Powered by Chili Debit Card</div>
       <p>Start with a campaign or connect the brand’s funding source. The demo keeps every back-end step visible.</p>
       <div class="prompt-shell">
         <button class="prompt-option" data-action="buildCampaign">
@@ -84,7 +85,7 @@ function homeScreen() {
       </div>
       <div class="card credits-inline-card">
         <div class="card-title"><div><strong>Visible credits</strong><small>Persistent on every page</small></div><span class="badge blue">USDC-backed</span></div>
-        <div class="credits-inline-row"><img src="./assets/usdc-logo.png" alt="USDC logo"><div><strong>${numberFmt(visibleCredits)} Credits</strong><small>Always visible at the top of the app</small></div></div>
+        <div class="credits-inline-row"><img src="./assets/usdc-logo.png" alt="USDC logo"><div><strong>${numberFmt(visibleCredits)} Credits</strong><small>Shown in the app header</small></div></div>
       </div>
       <div class="card">
         <div class="card-title"><div><strong>Coke funding snapshot</strong><small>$1M master funding example</small></div>${bankStatus}</div>
@@ -426,7 +427,7 @@ viewport.addEventListener('click', (e) => {
     else showToast('Prototype prompt understands campaign, banking, flow, wallet or payout.');
   }
   if (action === 'startShopperPayout') { state.activeScreen = 'shopperText'; saveState(); render(); }
-  if (action === 'openShopperReward') { state.activeScreen = 'shopperPhone'; saveState(); render(); }
+  if (action === 'openShopperReward') { state.shopperDevice = 'iPhone'; state.shopperRewardLoaded = true; state.activeScreen = 'shopperWallet'; saveState(); render(); showToast('$3.00 reward opened in Chili Rewards Debit Card.'); }
   if (action === 'shopperBackToText') { state.activeScreen = 'shopperText'; saveState(); render(); }
   if (action === 'shopperBackToPhone') { state.activeScreen = 'shopperPhone'; saveState(); render(); }
   if (action === 'continueShopperPhone') {
@@ -442,7 +443,7 @@ viewport.addEventListener('click', (e) => {
     state.shopperRewardLoaded = true;
     state.activeScreen = 'shopperWallet';
     saveState(); render();
-    showToast(`$3.00 Coke reward loaded to ${state.shopperDevice} Wallet.`);
+    showToast(`$3.00 reward loaded to ${state.shopperDevice} Wallet.`);
   }
   if (action === 'createCampaign') {
     const name = (document.getElementById('newCampaignName')?.value || '').trim();

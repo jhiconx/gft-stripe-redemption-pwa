@@ -46,7 +46,7 @@
         <article class="metric-card">
           <span class="metric-label">Credits visible</span>
           <strong>485,400</strong>
-          <small>USDC-backed credits shown on every page</small>
+          <small>USDC-backed credits in the app header</small>
         </article>
       </div>
 
@@ -65,7 +65,7 @@
           <h2>All of this will take place in a clean, AI autonomous actions, <strong>structured data handling,</strong> RAG (Retrieval-Augmented Generation), MCP and agents using loops and dynamic workflows.</h2>
           <p>The brand lands on a white GFT screen reading <strong>“Welcome to GFT, Let’s Get Started.”</strong> The first actions are <strong>Build A Campaign</strong> and <strong>Enter Your Banking Information</strong>. <strong>Build A Campaign</strong> opens the live GFT campaign admin at <strong>admin.gftrewards.com</strong>.</p>
           <p>Banking information launches a <strong>Plaid-style prototype flow</strong>. After the demo connection is complete, the experience returns with <strong>“Congrats, Let’s Build a Campaign.”</strong></p>
-          <p><strong>Persistent balance requirement:</strong> every page in the working prototype must display the shopper / account credit state using a <strong>USDC logo</strong>, the label <strong>Credits</strong>, and a running visible balance of <strong>485,400 credits</strong>.</p>
+          <p><strong>Persistent balance requirement:</strong> the working prototype must display the shopper / account credit state using a <strong>USDC logo</strong>, the label <strong>Credits</strong>, and a running balance of <strong>485,400 credits</strong> in the app header.</p>
         </section>
 
         <section class="doc-card">
@@ -93,7 +93,7 @@
           <h2>Campaign creation, waterfall presentation, persistent credits and shopper payout are explicit product requirements.</h2>
           <p><strong>Build A Campaign</strong> must hand the user directly into the existing GFT campaign-management product at <strong>https://admin.gftrewards.com/</strong>. The prototype opens that destination in a new browser tab so the onboarding experience connects to the live GFT campaign workflow rather than recreating it.</p>
           <p>All visible waterfall amounts are shown with <strong>two digits after the decimal</strong>. The Stripe Partner economic rule remains one-half cent per redemption; the user interface displays cent-rounded values while the underlying rule can retain the more precise value.</p>
-          <p>The shopper payout example is a <strong>$3.00 Coke redemption</strong>. The call to action reads <strong>Load to Card</strong>. The shopper receives a text, opens the link, enters a phone number, chooses <strong>iPhone</strong> or <strong>Android</strong>, and—when iPhone is selected—sees a <strong>Chili Rewards Debit Card</strong> added to the iPhone wallet with <strong>$3.00 in rewards</strong> and <strong>485,400 credits</strong> visible alongside the card.</p>
+          <p>The shopper payout example is a <strong>$3.00 Coke redemption</strong>. The call to action reads <strong>Load to Card</strong>. The shopper receives a text, opens the link, and goes straight to a <strong>Chili Rewards Debit Card</strong> in an iPhone-wallet-style view with <strong>$3.00 in rewards</strong> and <strong>485,400 credits</strong> visible alongside the card.</p>
         </section>
 
         <section class="doc-card">
@@ -210,11 +210,11 @@
           <div class="shopper-brd-flow" aria-label="Shopper payout requirements">
             <div><span>1</span><strong>Coke redemption</strong><small>$3.00 reward approved</small></div>
             <div><span>2</span><strong>Text message</strong><small>Shopper receives reward link</small></div>
-            <div><span>3</span><strong>Phone verification</strong><small>Shopper enters mobile number</small></div>
-            <div><span>4</span><strong>Choose device</strong><small>iPhone or Android</small></div>
-            <div><span>5</span><strong>Load to wallet</strong><small>Chili Rewards Debit Card · $3.00 Rewards</small></div>
+            <div><span>3</span><strong>Open reward link</strong><small>Consumer taps to continue</small></div>
+            <div><span>4</span><strong>Wallet load</strong><small>Chili Rewards Debit Card appears</small></div>
+            <div><span>5</span><strong>Credits visible</strong><small>485,400 credits shown beside the card</small></div>
           </div>
-          <p><strong>iPhone prototype outcome:</strong> after choosing iPhone, the PWA shows a <strong>Chili Rewards Debit Card</strong> inside an iPhone-wallet-style screen with a displayed balance of <strong>$3.00 in rewards</strong> and a persistent visible credit balance of <strong>485,400 credits</strong>.</p>
+          <p><strong>iPhone prototype outcome:</strong> after the shopper opens the reward link, the PWA shows a <strong>Chili Rewards Debit Card</strong> inside an iPhone-wallet-style screen with a displayed balance of <strong>$3.00 in rewards</strong> and a visible credit balance of <strong>485,400 credits</strong>.</p>
         </section>
 
         <section class="doc-card">
@@ -236,7 +236,7 @@
             <li><strong>Only after the GFT ledger state exists is the Privy support layer activated.</strong> Privy is used underneath GFT to support Stripe-compatible signing and transaction execution. It does not replace the GFT wallet system.</li>
             <li><strong>Wallet operations use the GFT user_id only.</strong> A shopper phone number may be collected in the GFT UX, but GFT resolves it internally; the phone number is not passed to Privy as the wallet identifier.</li>
             <li><strong>LEGEND orchestrates the downstream workflow.</strong> It applies the GFT-defined fee and payout rules and dispatches the required calls between GFT Wallet, Privy and Stripe.</li>
-            <li><strong>Stripe payout rules can then route value as fiat or USDC.</strong> The shopper example simulates a $3.00 Coke redemption: the shopper receives a text, opens the reward link, enters a phone number in GFT, selects iPhone or Android, and loads a Chili Rewards Debit Card with $3.00 in rewards into the selected mobile wallet while 485,400 credits remain visible on every page.</li>
+            <li><strong>Stripe payout rules can then route value as fiat or USDC.</strong> The shopper example simulates a $3.00 Coke redemption: the shopper receives a text, opens the reward link, and lands directly on a Chili Rewards Debit Card with $3.00 in rewards while 485,400 credits remain visible in the app header.</li>
           </ol>
         </section>
       </div>
@@ -270,7 +270,7 @@
                 <img src="./assets/usdc-logo.png" alt="USDC logo" class="credits-logo" />
                 <div>
                   <strong>Credits</strong>
-                  <small>USDC-backed balance visible on every page</small>
+                  <small>USDC-backed balance</small>
                 </div>
               </div>
               <div class="credits-total">485,400</div>

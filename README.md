@@ -36,3 +36,7 @@ Open `index.html` in a browser, or serve the folder with any static server.
 5. Build command: leave blank.
 6. Output directory: leave blank.
 7. Deploy.
+
+- The top credits banner no longer says "visible on every page" and is right-aligned closer to the 485,400 balance.
+- The shopper reward link now skips the intermediate phone-entry screen and opens straight to the Chili Rewards Debit Card screen.
+- The first onboarding screen now shows: **Powered by Chili Debit Card**.
